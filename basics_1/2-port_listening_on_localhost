@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Listen on port 98 and print any incoming data
+
+echo "Starting my script."
+
+sudo nc -lk 98
