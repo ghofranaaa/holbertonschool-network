@@ -1,4 +1,7 @@
 #!/usr/bin/env bash
 # Get all active IPv4 addresses
-ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | sort -u > output2
-cat output2
+ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | sort -u > temp_output
+
+# Use a temporary file to avoid conflicts
+cat temp_output > output2
+rm temp_output
