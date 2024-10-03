@@ -1,7 +1,10 @@
 #!/usr/bin/env bash
-# Get all active IPv4 addresses
-ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}' | sort -u > temp_output
 
-# Use a temporary file to avoid conflicts
-cat temp_output > output2
-rm temp_output
+# Check if ip command exists, use it; otherwise, fallback to ifconfig
+if command -v ip > /dev/null; then
+    # Use 'ip' command to fetch the IPv4 addresses
+    ip -4 addr show | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+else
+    # Fallback to 'ifconfig' for older systems
+    ifconfig | grep -oP '(?<=inet\s)\d+(\.\d+){3}'
+fi
